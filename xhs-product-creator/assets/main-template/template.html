@@ -1,0 +1,114 @@
+<!--
+📌 主图模板（HTML + PNG 背景方案）
+
+使用方式：
+1. 把你的 PNG 主图背景重命名为 main-bg.png，放到本目录
+2. 修改下面的 .placeholder 位置以匹配你 PNG 上文字的位置
+3. skill 调用时，会自动替换 {{YEAR}}、{{ORG}}、{{KEYWORD}} 等占位符
+
+占位符：
+  {{YEAR}}      - 年份（如 2026）
+  {{ORG}}       - 单位（如 华润集团）
+  {{KEYWORD}}   - 完整关键词（如 2026年华润集团笔试题库）
+  {{TITLE}}     - 标题
+  {{BADGE}}     - 角标/标签
+  {{COUNT1}}    - 数字1（如 2772 题）
+  {{COUNT2}}    - 数字2（如 12 份资料）
+  {{COUNT3}}    - 数字3（如 5 大模块）
+  {{COUNT4}}    - 数字4（如 0.0元）
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>{{KEYWORD}} · 主图模板</title>
+<style>
+  @page { size: 1080px 1440px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; color: #2b2b2b; }
+  .page {
+    width: 1080px; height: 1440px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+  }
+  /* 背景图占位：实际使用时换成 <img src="main-bg.png"> */
+  .bg {
+    position: absolute; top: 0; left: 0;
+    width: 1080px; height: 1440px;
+    background: linear-gradient(175deg, #fff8e1 0%, #ffe0b2 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #bcaaa4; font-size: 28px;
+  }
+  .bg-img {
+    position: absolute; top: 0; left: 0;
+    width: 1080px; height: 1440px;
+    object-fit: cover;
+  }
+
+  /* === 占位符定位 === */
+  /* 用户需要根据自己的 PNG 背景，调整这些位置和样式 */
+
+  .badge {
+    position: absolute; top: 60px; left: 60px;
+    background: #ff5252; color: #fff;
+    padding: 12px 28px; border-radius: 999px;
+    font-size: 32px; font-weight: 800;
+  }
+
+  .title {
+    position: absolute; top: 200px; left: 60px;
+    right: 60px;
+    font-size: 72px; font-weight: 900;
+    color: #d32f2f; line-height: 1.2;
+    text-shadow: 2px 2px 0 rgba(255,255,255,0.6);
+  }
+
+  .keyword {
+    position: absolute; top: 480px; left: 60px; right: 60px;
+    font-size: 42px; font-weight: 700;
+    color: #5d4037;
+  }
+
+  .kpi-grid {
+    position: absolute; top: 620px; left: 60px; right: 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .kpi {
+    background: #fff; border-radius: 16px;
+    padding: 30px 20px; text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-top: 4px solid #ff9800;
+  }
+  .kpi-num { font-size: 60px; font-weight: 900; color: #d32f2f; }
+  .kpi-label { font-size: 22px; color: #6d4c41; margin-top: 8px; }
+
+  .footer-note {
+    position: absolute; bottom: 80px; left: 60px; right: 60px;
+    text-align: center; font-size: 24px; color: #8d6e63;
+  }
+
+  /* 用户可在 PNG 模板上叠加自己的装饰元素 */
+</style>
+</head>
+<body>
+<section class="page">
+  <!-- 实际使用时替换为： <img class="bg-img" src="main-bg.png" alt=""> -->
+  <div class="bg">[ 你的 PNG 主图背景放在这里 main-bg.png ]</div>
+
+  <div class="badge">{{BADGE}}</div>
+  <h1 class="title">{{TITLE}}</h1>
+  <div class="keyword">{{KEYWORD}}</div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-num">{{COUNT1}}</div><div class="kpi-label">总题数</div></div>
+    <div class="kpi"><div class="kpi-num">{{COUNT2}}</div><div class="kpi-label">资料数</div></div>
+    <div class="kpi"><div class="kpi-num">{{COUNT3}}</div><div class="kpi-label">科目模块</div></div>
+    <div class="kpi"><div class="kpi-num">{{COUNT4}}</div><div class="kpi-label">今日价格</div></div>
+  </div>
+
+  <div class="footer-note">题库编号 · 来源官方 · 备考核心一站搞定</div>
+</section>
+</body>
+</html>

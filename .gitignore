@@ -1,0 +1,26 @@
+# 编译/缓存
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# 系统/编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# 日志与临时
+*.log
+nul
+
+# 不要把推送凭据带进来
+.env
+.env.*
+*.pem
+*.key

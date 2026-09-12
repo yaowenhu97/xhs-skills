@@ -1,0 +1,208 @@
+<!--
+📌 C 路径详情图 HTML 模板（4 页 1080×1440）
+
+调用时根据心社助手抓取的数据替换占位符：
+  {{TITLE}}         - 题库名
+  {{EXAM_TYPE}}     - 笔试 / 面试
+  {{MODULE_LIST}}   - 刷题模块列表 HTML
+  {{MATERIAL_LIST}} - 资料列表 HTML
+  {{HIGHLIGHTS}}    - 高频考点 HTML
+  {{ACCENT}}        - 主题色
+
+页码用 ?p=1..4 切换（render_png.ps1 脚本支持）
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>{{TITLE}} · 详情页</title>
+<style>
+  @page { size: 1080px 1440px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; color: #2b2b2b; background: #f5f7fa; }
+
+  .page {
+    width: 1080px; height: 1440px;
+    page-break-after: always;
+    padding: 36px 40px;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .header-tag {
+    background: {{ACCENT}}; color: #fff;
+    padding: 10px 24px; border-radius: 0 999px 999px 0;
+    font-size: 24px; font-weight: 700;
+    display: inline-block; margin-bottom: 20px;
+    align-self: flex-start;
+  }
+
+  .page-title {
+    font-size: 42px; font-weight: 900;
+    color: {{ACCENT}};
+    margin-bottom: 12px;
+  }
+  .page-sub {
+    font-size: 22px; color: #607d8b;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    background: #fff; border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    margin-bottom: 16px;
+    flex: 1 0 auto;
+  }
+
+  .module-group { margin-bottom: 18px; }
+  .module-group-title {
+    font-size: 26px; font-weight: 800;
+    color: {{ACCENT}};
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .module-count {
+    background: #fce4ec; color: {{ACCENT}};
+    padding: 4px 14px; border-radius: 999px;
+    font-size: 18px; font-weight: 700;
+  }
+  .module-list { list-style: none; padding: 0; margin: 0; }
+  .module-list li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #cfd8dc;
+    font-size: 20px;
+    display: flex; justify-content: space-between;
+  }
+  .module-list li:last-child { border-bottom: none; }
+  .module-list .name { color: #37474f; }
+  .module-list .count { color: #78909c; font-size: 18px; }
+
+  .material-table { width: 100%; border-collapse: collapse; font-size: 18px; }
+  .material-table th {
+    background: {{ACCENT}}; color: #fff;
+    padding: 10px 8px;
+    text-align: left; font-weight: 700;
+  }
+  .material-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eceff1;
+    color: #455a64;
+  }
+  .material-table tr:hover { background: #fafafa; }
+
+  .highlight-card {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border-left: 6px solid {{ACCENT}};
+    padding: 20px 24px; border-radius: 12px;
+    margin-bottom: 12px;
+    font-size: 20px; color: #4e342e;
+  }
+  .highlight-card .hl-title {
+    font-weight: 800; color: {{ACCENT}};
+    font-size: 22px; margin-bottom: 6px;
+  }
+
+  .footer-note {
+    text-align: center;
+    color: #90a4ae; font-size: 16px;
+    margin-top: auto;
+    padding-top: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- 第1页：刷题模块总览 -->
+<section class="page" id="p1">
+  <span class="header-tag">{{EXAM_TYPE}} · 刷题模块</span>
+  <h2 class="page-title">{{TITLE}}</h2>
+  <p class="page-sub">刷题模块总览 · 共 X 个科目 · Y 道题</p>
+
+  <div class="card">
+    {{MODULE_LIST}}
+    <!-- 示例：
+    <div class="module-group">
+      <div class="module-group-title">申论 <span class="module-count">5 子项 · 285 题</span></div>
+      <ul class="module-list">
+        <li><span class="name">综合分析能力</span><span class="count">62</span></li>
+        ...
+      </ul>
+    </div>
+    -->
+  </div>
+
+  <div class="footer-note">题库编号 · 来源官方 · 数据仅参考</div>
+</section>
+
+<!-- 第2页：笔试/资料完整目录 -->
+<section class="page" id="p2">
+  <span class="header-tag">资料目录</span>
+  <h2 class="page-title">{{TITLE}} · 资料清单</h2>
+  <p class="page-sub">完整资料列表 · 共 X 大模块 · Y 份 PDF</p>
+
+  <div class="card">
+    {{MATERIAL_LIST}}
+    <!-- 示例：
+    <table class="material-table">
+      <thead><tr><th>分组</th><th>资料名</th><th>份数</th></tr></thead>
+      <tbody>
+        <tr><td>时政</td><td>2026年7月时事政治考点汇总.pdf</td><td>12</td></tr>
+        ...
+      </tbody>
+    </table>
+    -->
+  </div>
+
+  <div class="footer-note">资料实时更新 · 详见心社助手平台</div>
+</section>
+
+<!-- 第3页：面试/资料目录（如有） -->
+<section class="page" id="p3">
+  <span class="header-tag">面试 · 资料目录</span>
+  <h2 class="page-title">面试资料清单</h2>
+  <p class="page-sub">面试高频考点 · 结构化资料 · 备考核心</p>
+
+  <div class="card">
+    {{INTERVIEW_LIST}}
+    <!-- 面试相关资料列表（如果有） -->
+  </div>
+
+  <div class="footer-note">面试环节同样重要 · 提前准备稳上岸</div>
+</section>
+
+<!-- 第4页：高频考点 / 备考建议 -->
+<section class="page" id="p4">
+  <span class="header-tag">高频考点 · 推荐</span>
+  <h2 class="page-title">{{TITLE}} · 核心考点</h2>
+  <p class="page-sub">基于心社助手数据整理 · 备考优先级排序</p>
+
+  <div class="card">
+    {{HIGHLIGHTS}}
+    <!-- 示例：
+    <div class="highlight-card">
+      <div class="hl-title">🔥 模块一：综合分析能力</div>
+      出题频率最高 · 占分比重大 · 建议优先突破
+    </div>
+    -->
+  </div>
+
+  <div class="footer-note">本笔记由 xhs-product-creator 自动生成 · 备考以官方为准</div>
+</section>
+
+<!-- 截图 helper（必须保留在 </body> 前） -->
+<script>
+(function(){
+  var m = location.search.match(/[?&]p=(\d+)/);
+  if (!m) return;
+  var n = parseInt(m[1]) - 1;
+  var ps = document.querySelectorAll('.page');
+  ps.forEach(function(el, i){
+    if (i !== n) el.style.setProperty('display', 'none', 'important');
+  });
+})();
+</script>
+</body>
+</html>

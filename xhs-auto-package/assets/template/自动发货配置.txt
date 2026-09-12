@@ -1,0 +1,29 @@
+============================================================
+  小红书千帆自动发货配置 - 小红书商品包（示例模板）
+============================================================
+
+上传数据包后，请按以下清单在店铺后台为每个 SKU 配置：
+
+自动发货链接：
+  https://ecnfpjn1bu86.feishu.cn/wiki/XEiVwwvEliIGxEkFJK7coYBAnKh?from=from_copylink
+
+自动发货内容说明：
+  重点来了:10分钟内[五⭐+10字带图评价]赠送全年更新时政资料包，联系客服获取，爱你哦~考试必过
+
+------------------------------------------------------------
+商品清单（按字典序，共 N 个商品）：
+------------------------------------------------------------
+
+1. 示例关键词A
+   SKU [笔试（下单后联系客服）]:
+     - 链接: https://ecnfpjn1bu86.feishu.cn/wiki/XEiVwwvEliIGxEkFJK7coYBAnKh?from=from_copylink
+     - 内容: 重点来了:10分钟内[五⭐+10字带图评价]赠送全年更新时政资料包，联系客服获取，爱你哦~考试必过
+   SKU [面试（下单后联系客服）]:
+     - 链接: https://ecnfpjn1bu86.feishu.cn/wiki/XEiVwwvEliIGxEkFJK7coYBAnKh?from=from_copylink
+     - 内容: 重点来了:10分钟内[五⭐+10字带图评价]赠送全年更新时政资料包，联系客服获取，爱你哦~考试必过
+   SKU [笔试+面试（下单后联系客服）]:
+     - 链接: https://ecnfpjn1bu86.feishu.cn/wiki/XEiVwwvEliIGxEkFJK7coYBAnKh?from=from_copylink
+     - 内容: 重点来了:10分钟内[五⭐+10字带图评价]赠送全年更新时政资料包，联系客服获取，爱你哦~考试必过
+   SKU [时政包（下单后联系客服）]:
+     - 链接: https://ecnfpjn1bu86.feishu.cn/wiki/XEiVwwvEliIGxEkFJK7coYBAnKh?from=from_copylink
+     - 内容: 重点来了:10分钟内[五⭐+10字带图评价]赠送全年更新时政资料包，联系客服获取，爱你哦~考试必过

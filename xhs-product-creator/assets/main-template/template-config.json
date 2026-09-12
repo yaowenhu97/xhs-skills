@@ -1,0 +1,99 @@
+{
+  "_comment": "主图模板路由配置 - 以店铺名为前缀命名",
+  "_usage": "用户在对话中说「用 卜诗上岸喵 模板做XX」即可路由到对应模板",
+  "default_template": "卜诗上岸喵",
+  "coordinate_system": "all_actual_pixels",
+  "templates": [
+    {
+      "id": "bushi_shanganmiao",
+      "name": "卜诗上岸喵",
+      "file": "卜诗上岸喵-main.png",
+      "format": "PNG",
+      "width": 2048,
+      "height": 2048,
+      "aspect_ratio": "1:1",
+      "editable_fields": [
+        {
+          "name": "KEYWORD",
+          "label": "主关键词（替换「考公考编」4字位）",
+          "x": 280,
+          "y": 400,
+          "max_width": 1490,
+          "cover_height": 530,
+          "font_family": "Microsoft YaHei",
+          "font_size": 280,
+          "min_font_size": 90,
+          "font_weight": "bold",
+          "color": "#E63312",
+                    "preprocess_color": "#FFFFFF",
+          "align": "center",
+          "required": true,
+          "_preprocessing_note": "⚠️ 需要先用 preprocess_main.ps1 把「考公考编」4字位置用白色块覆盖（背景是白色卡片）"
+        }
+      ],
+      "description": "通用橙色版考公考编备考资料主图，更更换「考公考编」关键词",
+      "design_style": {
+        "theme_color": "#FF6B1A",
+        "background": "橙色渐变",
+        "store_badge": "卜诗上岸喵"
+      }
+    },
+    {
+      "id": "bushi_ziliaoku",
+      "name": "卜诗资料库",
+      "file": "卜诗资料库-main.jpg",
+      "format": "JPG",
+      "width": 1254,
+      "height": 1254,
+      "aspect_ratio": "1:1",
+      "editable_fields": [
+        {
+          "name": "ORG_NAME",
+          "label": "单位名（替换「南安市属国企」6字位）",
+          "x": 80,
+          "y": 220,
+          "max_width": 1100,
+          "cover_height": 200,
+          "font_family": "Microsoft YaHei",
+          "font_size": 140,
+          "min_font_size": 50,
+          "font_weight": "bold",
+          "color": "#1A1A1A",
+                    "preprocess_color": "#FFFFFF",
+          "align": "center",
+          "required": true,
+          "_preprocessing_note": "⚠️ 需要先用 preprocess_main.ps1 把「南安市属国企」6字位置用白色块覆盖（背景是白色）"
+        }
+      ],
+      "description": "红色定制版考公考编主图，更换「南安市属国企」单位名",
+      "design_style": {
+        "theme_color": "#C00000",
+        "background": "红色渐变",
+        "store_badge": "卜诗资料库"
+      }
+    }
+  ],
+  "routing_rules": [
+    {
+      "trigger_keywords": ["上岸喵", "通用", "橙色", "default"],
+      "target": "bushi_shanganmiao"
+    },
+    {
+      "trigger_keywords": ["资料库", "红色", "具体单位", "国企", "事业单位"],
+      "target": "bushi_ziliaoku"
+    }
+  ],
+  "preprocessing_guide": {
+    "_comment": "预处理指南",
+    "why_needed": "直接叠加文字会导致原字仍在底层（两层文字重叠）。解决方案：先用 preprocess_main.ps1 在原字位置画同色块覆盖，再叠加新关键词。",
+    "one_command_workflow": [
+      "# Step 1: 备份并预处理（一次性，自动覆盖原字位置）",
+      "powershell -File scripts/preprocess_main.ps1 -Template '卜诗上岸喵' -BackupDir 'C:\\backup'",
+      "powershell -File scripts/preprocess_main.ps1 -Template '卜诗资料库' -BackupDir 'C:\\backup'",
+      "",
+      "# Step 2: 叠加新关键词（每次使用时调用）",
+      "powershell -File scripts/overlay_main.ps1 -Template '卜诗上岸喵' -OutPath 'main.jpg' -Fields @{KEYWORD='事业单位联考'}",
+      "powershell -File scripts/overlay_main.ps1 -Template '卜诗资料库' -OutPath 'main.jpg' -Fields @{ORG_NAME='福州市属国企'}"
+    ]
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "id": 100100100100100,
+  "version": "1.2.0",
+  "name": "xhs-product-creator",
+  "displayName": "小红书商品创作助手",
+  "description": "小红书商品笔记一站式创作助手 + 千川投流素材打包器。用户只提供商品关键词，自动产出完整可发布的商品笔记（3:4竖版爆款封面 + 主图 + 种草图 + 详情图 + 爆款标题 + 正文 + 话题标签），并按 8.24.zip 规范打包为 ZIP 商品数据包。整合电商美工、小红书作图、产品3D渲染、小红书爆款文案、心社助手题库抓取、小红书禁发商品合规（ID 1349）共 5 个原始能力。触发词：小红书商品、商品笔记、种草笔记、商品图、电商小红书、xhs product、信息类商品、题库笔记、招聘笔记、小红书带货、千川投流、商品数据包、YYYYMMDD。",
+  "platform": "minimax",
+  "category": "content-creation",
+  "tags": ["xiaohongshu", "product", "ecommerce", "tutorial", "image-generation", "copywriting", "compliance", "html-render", "xhs-package", "qianchuan"],
+  "merged_from": [
+    "ecommerce-design-assistant",
+    "xiaohongshu-image-creator",
+    "image-creator",
+    "xiaohongshu-copywriter",
+    "xhs-question-bank-pipeline"
+  ],
+  "paths": {
+    "A": {
+      "name": "实物商品路径（AI 生图）",
+      "applies_to": ["服装", "美妆", "食品", "家居", "数码", "母婴"],
+      "image_count_min": 12,
+      "image_count_max": 17,
+      "image_aspect_ratio": "3:4",
+      "tools": ["image_synthesize", "gen_images"]
+    },
+    "B": {
+      "name": "信息类商品路径（HTML+截图）",
+      "applies_to": ["课程", "题库", "资料", "培训", "SaaS", "电子书", "服务套餐", "招聘报名"],
+      "image_count": 5,
+      "image_dimensions": "1080x1440",
+      "image_aspect_ratio": "3:4",
+      "image_format": "JPG",
+      "tools": ["render_image.ps1", "chrome-headless"],
+      "default_output_dir": "C:\\Users\\root\\Desktop\\笔记\\素材\\小红书笔记\\PNG\\"
+    },
+    "C": {
+      "name": "题库商品零干预路径（关键词→全套ZIP）",
+      "applies_to": ["心社助手题库商品"],
+      "tools": ["overlay_main.ps1", "render_image.ps1", "package_zip.ps1"],
+      "trigger": "用户发任意商品关键词",
+      "output_format": "ZIP (8.24.zip 规范)"
+    },
+    "compliance": {
+      "name": "合规审查（双路径共用）",
+      "sources": ["薯条加热规范", "小红书禁发商品及信息管理规范 ID 1349"],
+      "outputs": ["必改词命中报告", "21 大禁发品类检查", "图片合规检查"]
+    }
+  },
+  "store_templates": {
+    "description": "两个店铺的成品主图模板，以店铺名为前缀命名",
+    "卜诗上岸喵": {
+      "file": "卜诗上岸喵-main.png",
+      "original_backup": "卜诗上岸喵-original.png",
+      "editable_field": "KEYWORD",
+      "replaces": "考公考编",
+      "color": "#E63312",
+      "preprocess_color": "#FFFFFF"
+    },
+    "卜诗资料库": {
+      "file": "卜诗资料库-main.jpg",
+      "original_backup": "卜诗资料库-original.jpg",
+      "editable_field": "ORG_NAME",
+      "replaces": "南安市属国企",
+      "color": "#1A1A1A",
+      "preprocess_color": "#FFFFFF"
+    }
+  },
+  "trigger_keywords": [
+    "小红书商品",
+    "商品笔记",
+    "种草笔记",
+    "商品图",
+    "电商小红书",
+    "xhs product",
+    "小红书带货",
+    "小红书电商",
+    "信息类商品",
+    "题库笔记",
+    "招聘笔记",
+    "小红书笔记",
+    "小红书种草",
+    "小红书爆款",
+    "小红书3:4",
+    "千川投流",
+    "商品数据包",
+    "上岸喵",
+    "资料库"
+  ],
+  "output": {
+    "deliverables": [
+      "main_image",
+      "main_image_backup_1",
+      "main_image_backup_2",
+      "detail_images",
+      "title_candidates",
+      "body_text",
+      "hashtags",
+      "compliance_report"
+    ],
+    "path_C_extras": [
+      "html_source",
+      "compliance_report",
+      "package_zip"
+    ]
+  },
+  "package_zip_spec": {
+    "format": "ZIP",
+    "root_dir_pattern": "商品数据包_小红书千川投流素材_YYYYMMDD_第N批",
+    "naming_pattern": "YYYYMMDD.zip 或 YYYYMMDD-N.zip",
+    "structure": {
+      "Excel版本商品模板.xlsx": "千川商品上传模板（可选）",
+      "README.md": "包说明",
+      "自动生成记录.txt": "生成日志",
+      "{单位名}/": "每个商品一个目录",
+      "{单位名}/商品图片/": "主图封面（1.jpg）",
+      "{单位名}/小红书商品主图/": "主图备用 1-2 张",
+      "{单位名}/{科目名}/": "详情图按科目分类"
+    },
+    "reference": "8.24.zip (20260824_第1批)"
+  },
+  "compliance_rules": {
+    "必改词映射": [
+      "招聘→报名",
+      "上岸→通过",
+      "公务员→公职人员",
+      "选调生→定向招录",
+      "辅警→协勤",
+      "最/第一→较/前列",
+      "包过→提高效率",
+      "微信号/二维码→删除",
+      "机构名→删除"
+    ],
+    "21_禁发品类": [
+      "医疗/医美",
+      "欺诈作弊",
+      "金融",
+      "烟草",
+      "交通航空铁路设备",
+      "网络游戏外挂私服",
+      "仿冒小红书",
+      "不适宜代办挂靠"
+    ],
+    "薯条加热规范": "必参：13 个公考高危场景 + 红黄绿三级词表"
+  },
+  "included_files": [
+    "SKILL.md",
+    "_meta.json",
+    "assets/main-template/template-config.json",
+    "assets/main-template/template.html",
+    "assets/main-template/卜诗上岸喵-main.png",
+    "assets/main-template/卜诗上岸喵-original.png",
+    "assets/main-template/卜诗资料库-main.jpg",
+    "assets/main-template/卜诗资料库-original.jpg",
+    "assets/detail-templates/path-c-template.html",
+    "scripts/overlay_main.ps1",
+    "scripts/preprocess_main.ps1",
+    "scripts/render_image.ps1",
+    "scripts/package_zip.ps1"
+  ],
+  "scripts": {
+    "preprocess_main.ps1": {
+      "purpose": "预处理主图模板：用同色矩形覆盖原字位置（仅需一次）",
+      "params": ["-Template 店铺名", "-BackupDir 备份目录"],
+      "called_once_per_template": true
+    },
+    "overlay_main.ps1": {
+      "purpose": "在主图模板上叠加新关键词（自动调字号 + 一行显示）",
+      "params": ["-Template 店铺名", "-OutPath 输出路径", "-Fields @{KEYWORD/ORG_NAME=新关键词}", "-Format JPG/PNG/WEBP"],
+      "called_per_keyword": true
+    },
+    "render_image.ps1": {
+      "purpose": "Chrome headless 截图，将 HTML 按 ?p=N 截成 1080x1440 PNG/JPG/WEBP",
+      "params": ["-HtmlDir 输入目录", "-OutDir 输出目录", "-Format PNG/JPG/WEBP", "-JpgQuality 1-100"],
+      "called_for_detail_images": true
+    },
+    "package_zip.ps1": {
+      "purpose": "按 8.24.zip 规范打包商品数据包 ZIP（含根目录包裹层）",
+      "params": ["-ItemsDir 商品素材根目录", "-OutZip 输出 zip 路径", "-Batch 批次号", "-ExcelTemplate Excel模板路径"],
+      "called_for_final_package": true
+    }
+  },
+  "workflow_7_steps": [
+    "用户发送商品关键词 → 触发全流程",
+    "主图制作 → overlay_main.ps1（替换关键词，自动调字号）",
+    "详情图素材抓取 → 心社助手 4 类目录（笔试题库/历年真题/题库完整目录/面试资料）",
+    "详情图制作 → render_image.ps1 -Format JPG + path-c-template.html",
+    "合规审查 → 必改词 + 21 大禁发品类 + 薯条加热规范",
+    "打包输出 → package_zip.ps1（按 8.24.zip 规范）",
+    "命名规范 → YYYYMMDD.zip 或 YYYYMMDD-N.zip"
+  ],
+  "default_behavior": {
+    "trigger_on_keyword_only": true,
+    "explicit_template_keywords": ["上岸喵", "资料库", "哪个模板"],
+    "multiple_keywords": "每个关键词都生成一个商品单元"
+  },
+  "updated_at": 1756080000000
+}
